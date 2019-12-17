@@ -1,37 +1,26 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand" href="{% url 'index_url' %}">
-        <img src="{% static 'info/img/dm.png' %}" width="50" height="50" alt="">
-    </a>
-    <a class="navbar-brand" href="{% url 'index_url' %}">ГлУр</a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown link
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-</nav>
+<ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link h3 mx-auto text-secondary" href="{% url 'index_url' %}">ГлУр</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link  h3 mx-auto text-secondary" href="{% url 'musician_url' %}">Музыканты</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link  h3 mx-auto text-secondary" href="{% url 'scene_url' %}">Сцены</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link  h3 mx-auto text-secondary" href="{% url 'gallery_url' %}">Фото/Видео</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link  h3 mx-auto text-secondary" href="{% url 'blog_url' %}">Новости</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link  h3 mx-auto text-secondary" href="{% url 'location_url' %}">Как добраться</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link  h3 mx-auto text-secondary" href="{% url 'contacts_url' %}">Контакты</a>
+    </li>
+</ul>
