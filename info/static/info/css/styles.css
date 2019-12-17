@@ -10,6 +10,18 @@
     background-position: center;
     background-size: cover;
 }
+
+.navbar-block{
+    border-radius: 20px 20px 0 0;
+    background-color: #f8f9fa8a;
+}
+
+.content-block{
+    border-radius:0 0 20px 20px;
+    background-color: #f8f9fa8a;
+}
+
 .test{
     background-color: red;
 }
+
