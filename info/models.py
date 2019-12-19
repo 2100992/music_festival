@@ -139,3 +139,11 @@ class Gallery(models.Model):
         blank=True,
         null=True
     )
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = make_unique_slug(self.__class__, self.title)
+
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.title
