@@ -9,5 +9,17 @@
     <div class="text-light">
         {{ info.html_field|safe }}
     </div>
+
+    <div class="text-light">
+        {% for part in participants %}
+        <h1>
+            {{ part.title|safe }}
+        </h1>
+        <div>
+            {{ part.html_field|safe }}
+        </div>
+        {% endfor %}
+    </div>
+    
     <br>
 {% endblock %}
