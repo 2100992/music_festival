@@ -8,3 +8,19 @@ from .models import Info, Participant, Gallery, Location
 @admin.register(Info)
 class InfoAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(Participant)
+class InfoAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Location)
+class InfoAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Gallery)
+class InfoAdmin(admin.ModelAdmin):
+    pass
+
+# @admin.register(Gallery)
+# class InfoAdmin(admin.ModelAdmin):
+#     pass
