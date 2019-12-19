@@ -67,24 +67,30 @@ class Blog(View):
         return render(request, self.template, context=context)
 
 class Road(View):
-    template = 'info/index.html'
-    
+    template = 'info/road.html'
+    model_info = Info
+
     def get(self, request):
         context = {}
+        context['info'] = get_object_or_404(self.model_info, destination='road')
         return render(request, self.template, context=context)
 
 class Infrastructure(View):
-    template = 'info/index.html'
-    
+    template = 'info/infrastructure.html'
+    model_info = Info
+
     def get(self, request):
         context = {}
+        context['info'] = get_object_or_404(self.model_info, destination='infrastructure')
         return render(request, self.template, context=context)
 
 class Contacts(View):
-    template = 'info/index.html'
-    
+    template = 'info/contacts.html'
+    model_info = Info
+
     def get(self, request):
         context = {}
+        context['info'] = get_object_or_404(self.model_info, destination='contacts')
         return render(request, self.template, context=context)
 
 

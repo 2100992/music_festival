@@ -9,17 +9,5 @@
     <div class="text-light">
         {{ info.html_field|safe }}
     </div>
-    <hr class="text-secondary">
-    <div class="text-light">
-        {% for lock in locations %}
-        <h1>
-            {{ lock.title|safe }}
-        </h1>
-        <div>
-            {{ lock.html_field|safe }}
-        </div>
-        {% endfor %}
-    </div>
-
     <br>
 {% endblock %}
