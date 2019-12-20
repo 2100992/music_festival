@@ -1,0 +1,15 @@
+<div class="gallery">
+    {% for img in info.photo.all %}
+    <div>
+        {% if img.img %}
+        <a href="{{ img.img.url }}">
+            <img src="{{ img.img.url }}" class="d-block w-100" alt="{{img.title}}">
+        </a>
+        {% elif img.remote_img %}
+        <a href="{{ img.remote_img }}">
+            <img src="{{ img.remote_img }}" class="d-block w-100" alt="{{img.title}}">
+        </a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>

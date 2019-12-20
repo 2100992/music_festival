@@ -6,8 +6,10 @@
 {% block navbar %}{% include 'info/navbar.html' %}{% endblock %}
 
 {% block content %}
-    <div class="text-light">
-        {{ info.html_field|safe }}
-    </div>
-    <br>
+{% for info in info %}
+<div class="text-light">
+    {{ info.html_field|safe }}
+</div>
+    {% include 'info/gallery_grid.html' %}
+{% endfor %}
 {% endblock %}

@@ -31,8 +31,10 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-3 shadow-lg p-3 mx-4 rounded navbar-block">
-                {% block navbar %}{% endblock %}
+            <div class="col-3 mx-4">
+                <div class="shadow-lg rounded navbar-block">
+                    {% block navbar %}{% endblock %}
+                </div>
             </div>
             <div class="col shadow-lg p-3 mx-4 rounded content-block">
                 {% block content %}{% endblock %}

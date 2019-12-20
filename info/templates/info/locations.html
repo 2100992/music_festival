@@ -1,25 +1,33 @@
 {% extends "info/base.html" %}
 
-{% block title %}{{ info.title }}{% endblock %}
-{% include 'navbar.html' %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block navbar %}{% include 'info/navbar.html' %}{% endblock %}
 
 {% block content %}
-    <div class="text-light">
+
+{% for info in info %}
+<div class="text-light">
+    {{ info.html_field|safe }}
+</div>
+    {% include 'info/gallery_carousel.html' %}
+<br>
+{% endfor %}
+
+<hr class="text-secondary">
+
+<div class="text-light">
+    {% for info in locations %}
+    <h1>
+        {{ info.title }}
+    </h1>
+    <div>
         {{ info.html_field|safe }}
     </div>
-    <hr class="text-secondary">
-    <div class="text-light">
-        {% for lock in locations %}
-        <h1>
-            {{ lock.title|safe }}
-        </h1>
-        <div>
-            {{ lock.html_field|safe }}
-        </div>
-        {% endfor %}
-    </div>
-
+    {% include 'info/gallery_grid.html' %}
     <br>
+    {% endfor %}
+</div>
+
+<br>
 {% endblock %}

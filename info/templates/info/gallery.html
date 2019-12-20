@@ -11,21 +11,8 @@
 <div class="text-light">
     {{ info.html_field|safe }}
 </div>
-    {% include 'info/gallery_carousel.html' %}
-{% endfor %}
-
-<hr class="text-secondary">
-
-<div class="text-light">
-    {% for info in participants %}
-    <h1>
-        {{ info.title|safe }}
-    </h1>
-    <div>
-        {{ info.html_field|safe }}
-    </div>
     {% include 'info/gallery_grid.html' %}
-    {% endfor %}
-</div>
+<br>
+{% endfor %}
 
 {% endblock %}

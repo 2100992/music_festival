@@ -1,13 +1,19 @@
 {% extends "info/base.html" %}
 
-{% block title %}{{ info.title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 {% include 'navbar.html' %}
 
 {% block navbar %}{% include 'info/navbar.html' %}{% endblock %}
 
 {% block content %}
-    <div class="text-light">
-        {{ info.html_field|safe }}
-    </div>
-    <br>
+
+{% for info in info %}
+<div class="text-light">
+    {{ info.html_field|safe }}
+</div>
+    {% include 'info/gallery_carousel.html' %}
+<br>
+{% endfor %}
+
+
 {% endblock %}
