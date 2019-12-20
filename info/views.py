@@ -2,95 +2,78 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic.base import TemplateView
 
-from info.models import Info, Participant, Location
+from info.models import Info, Participant, Location, Photo
 from django.shortcuts import get_object_or_404, get_list_or_404
-
+from info.utils import GetContextDataMixin
 
 
 # Create your views here.
 
 
-# class Index(View):
-#     template = 'info/index.html'
-#     model_info = Info
-    
-#     def get(self, request):
-#         context = {}
-#         context['info'] = get_object_or_404(self.model_info, destination='index')
-#         return render(request, self.template, context=context)
-
-
-class Index(TemplateView):
+class Index(GetContextDataMixin, TemplateView):
     template_name = 'info/index.html'
     model_info = Info
-
-    def get_context_data(self, **kwargs):
-        context = {}
-        context['info'] = get_object_or_404(self.model_info, destination='index')
-        return context
+    destination = 'index'
 
 
-class Participans(View):
-    template = 'info/participants.html'
+class Participans(GetContextDataMixin, TemplateView):
+    template_name = 'info/participants.html'
     model_info = Info
     model = Participant
-    
-    def get(self, request):
-        context = {}
-        context['info'] = get_object_or_404(self.model_info, destination='participants')
-        context['participants'] = Participant.objects.all()
-        return render(request, self.template, context=context)
+    destination = 'participants'
 
-class Locations(View):
-    template = 'info/locations.html'
+
+class Locations(GetContextDataMixin, TemplateView):
+    template_name = 'info/locations.html'
     model_info = Info
     model = Location
-    
-    def get(self, request):
-        context = {}
-        context['info'] = get_object_or_404(self.model_info, destination='locations')
-        context['locations'] = Location.objects.all()
-        return render(request, self.template, context=context)
+    destination = 'locations'
 
-class Gallery(View):
-    template = 'info/index.html'
-    
-    def get(self, request):
-        context = {}
-        return render(request, self.template, context=context)
+
+class Road(GetContextDataMixin, TemplateView):
+    template_name = 'info/road.html'
+    model_info = Info
+    destination = 'road'
+
+
+class Infrastructure(GetContextDataMixin, TemplateView):
+    template_name = 'info/infrastructure.html'
+    model_info = Info
+    destination='infrastructure'
+
+
+class Contacts(GetContextDataMixin, TemplateView):
+    template_name = 'info/contacts.html'
+    model_info = Info
+    destination='contacts'
+
+
+class Gallery(GetContextDataMixin, TemplateView):
+    template_name = 'info/gallery.html'
+    model_info = Info
+    model = Photo
+    destination = 'gallery'
+
+    # def get_context_data(self, **kwargs):
+    #     context = {}
+    #     context['img'] = self.model.objects.all()
+
+    #     context['info'] = get_list_or_404(
+    #         self.model_info, destination=self.destination)
+        
+    #     context['title'] = context['info'][0].title
+
+    #     if self.model:
+    #         context[self.destination] = self.model.objects.all()
+
+    #     return context
+
 
 class Blog(View):
     template = 'info/index.html'
-    
-    def get(self, request):
-        context = {}
-        return render(request, self.template, context=context)
-
-class Road(View):
-    template = 'info/road.html'
-    model_info = Info
 
     def get(self, request):
         context = {}
-        context['info'] = get_object_or_404(self.model_info, destination='road')
-        return render(request, self.template, context=context)
-
-class Infrastructure(View):
-    template = 'info/infrastructure.html'
-    model_info = Info
-
-    def get(self, request):
-        context = {}
-        context['info'] = get_object_or_404(self.model_info, destination='infrastructure')
-        return render(request, self.template, context=context)
-
-class Contacts(View):
-    template = 'info/contacts.html'
-    model_info = Info
-
-    def get(self, request):
-        context = {}
-        context['info'] = get_object_or_404(self.model_info, destination='contacts')
         return render(request, self.template, context=context)
 
 
