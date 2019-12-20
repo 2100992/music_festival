@@ -5,6 +5,55 @@ from info.translater import translate
 from slugify import slugify
 from markdown import markdown
 
+# ______________________________________________________________________
+# utils for views
+
+
+class GetContextDataMixin:
+    model_info = None
+    model = None
+    destination = None
+
+    def get_context_data(self, **kwargs):
+        context = {}
+
+        context['info'] = get_list_or_404(
+            self.model_info, destination=self.destination)
+        
+        context['title'] = context['info'][0].title
+
+        if self.model:
+            context[self.destination] = self.model.objects.all()
+
+        return context
+
+
+# class ObjectDetailMixin:
+#     model = None
+#     template = None
+
+#     def get(self, request, slug):
+#         obj = get_object_or_404(self.model, slug__iexact=slug)
+#         context = {
+#             self.model.__name__.lower(): obj
+#         }
+
+#         if request.user.is_authenticated:
+#             context['username'] = request.user.username
+
+#         return render(request, self.template, context=context)
+
+
+# class ObjectsListMixin:
+#     model = None
+#     template = None
+#     title = None
+
+
+
+# ______________________________________________________________________
+# utils for models
+
 
 def make_unique_slug(model, text, counter=0):
     try:
@@ -23,23 +72,4 @@ def make_unique_slug(model, text, counter=0):
     return slug + str_counter
 
 
-class ObjectDetailMixin:
-    model = None
-    template = None
 
-    def get(self, request, slug):
-        obj = get_object_or_404(self.model, slug__iexact=slug)
-        context = {
-            self.model.__name__.lower(): obj
-        }
-
-        if request.user.is_authenticated:
-            context['username'] = request.user.username
-
-        return render(request, self.template, context=context)
-
-
-class ObjectsListMixin:
-    model = None
-    template = None
-    title = None
