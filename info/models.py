@@ -1,7 +1,7 @@
 from django.db import models
 
 from markdown import markdown
-from slugify import slugify
+# from slugify import slugify
 
 from info.utils import make_unique_slug
 
@@ -102,7 +102,7 @@ class Location(models.Model):
         return self.title
 
 
-class Gallery(models.Model):
+class Photo(models.Model):
     title = models.CharField(
         max_length=128,
         db_index=True,
@@ -126,21 +126,21 @@ class Gallery(models.Model):
     info = models.ForeignKey(
         Info,
         on_delete=models.CASCADE,
-        related_name='gallery',
+        related_name='photo',
         blank=True,
         null=True
     )
     participant = models.ForeignKey(
         Participant,
         on_delete=models.CASCADE,
-        related_name='gallery',
+        related_name='photo',
         blank=True,
         null=True
     )
     location = models.ForeignKey(
         Location,
         on_delete=models.CASCADE,
-        related_name='gallery',
+        related_name='photo',
         blank=True,
         null=True
     )

@@ -1,7 +1,7 @@
 from codecs import register
 from django.contrib import admin
 from django.contrib.auth.models import User
-from .models import Info, Participant, Gallery, Location
+from .models import Info, Participant, Photo, Location
 
 # Register your models here.
 
@@ -17,10 +17,6 @@ class InfoAdmin(admin.ModelAdmin):
 class InfoAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Gallery)
+@admin.register(Photo)
 class InfoAdmin(admin.ModelAdmin):
     pass
-
-# @admin.register(Gallery)
-# class InfoAdmin(admin.ModelAdmin):
-#     pass
