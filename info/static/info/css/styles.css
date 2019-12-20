@@ -25,3 +25,31 @@
     background-color: red;
 }
 
+.gallery {  
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-rows: repeat(2, 100px);
+}
+
+.gallery > div > img {
+    width: 95%;
+    height: 95%;
+    object-fit: cover;
+}
+
+.gallery > div > img:hover {
+    width: 100%;
+    height: 100%;
+}
+
+.gallery > div > a > img {
+    width: 95%;
+    height: 95%;
+    object-fit: cover;
+}
+
+.gallery > div > a > img:hover {
+    width: 100%;
+    height: 100%;
+}
