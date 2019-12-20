@@ -118,6 +118,11 @@ class Gallery(models.Model):
         blank=True,
         null=True,
     )
+    remote_img = models.CharField(
+        max_length=256,
+        blank=True,
+        null=True,
+    )
     info = models.ForeignKey(
         Info,
         on_delete=models.CASCADE,
