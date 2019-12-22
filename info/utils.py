@@ -15,15 +15,19 @@ class GetContextDataMixin:
     destination = None
 
     def get_context_data(self, **kwargs):
-        context = {}
+        context = super().get_context_data(**kwargs)
+        # context = {}
 
         context['info'] = get_list_or_404(
             self.model_info, destination=self.destination)
-        
+
         context['title'] = context['info'][0].title
 
         if self.model:
             context[self.destination] = self.model.objects.all()
+
+        if self.request.user.is_authenticated:
+            context['username'] = self.request.user.username
 
         return context
 
@@ -50,7 +54,6 @@ class GetContextDataMixin:
 #     title = None
 
 
-
 # ______________________________________________________________________
 # utils for models
 
@@ -70,6 +73,3 @@ def make_unique_slug(model, text, counter=0):
         counter += 1
         slug = make_unique_slug(model, slug, counter)
     return slug + str_counter
-
-
-
