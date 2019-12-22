@@ -1,0 +1,5 @@
+{% if username %}  
+    {{ username }}, ты можешь <a href="{% url 'logout_url' %}?next=/p_library/">выйти</a>
+{% else %}  
+    Тебе нужно <a href="{% url 'login_url' %}?next=/p_library/">войти</a> на сайт!
+{% endif %} 
