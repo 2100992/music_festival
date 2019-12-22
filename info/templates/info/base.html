@@ -17,6 +17,9 @@
 
 <body>
     <div class="background"></div>
+
+
+{% comment %} Logo & profile {% endcomment %}
     <div class="container my-4">
         <div class="row">
             <div class="col-3 mx-4">
@@ -25,15 +28,18 @@
                 </a>
             </div>
             <div class="col mx-4">
-                {% block login %}{% endblock %}
+                {% block profile %}{% include 'info/profile.html' %}{% endblock %}
             </div>
         </div>
     </div>
+
     <div class="container">
         <div class="row">
             <div class="col-3 mx-4">
                 <div class="shadow-lg rounded navbar-block">
+
                     {% block navbar %}{% endblock %}
+
                 </div>
             </div>
             <div class="col shadow-lg p-3 mx-4 rounded content-block">
@@ -41,6 +47,7 @@
             </div>
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
