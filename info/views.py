@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic.base import TemplateView
 
@@ -75,6 +75,14 @@ class Blog(View):
     def get(self, request):
         context = {}
         return render(request, self.template, context=context)
+
+
+def profile_redirect(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return redirect('/admin/')
+        return redirect('/contacts/')
+    return redirect('/')
 
 
 # class Login(LoginView):
