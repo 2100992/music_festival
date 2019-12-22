@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     'blog',
     'info',
     'timetable',
-    'commitee',
+    'committee',
 ]
 
 SITE_ID = 1
