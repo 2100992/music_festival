@@ -21,7 +21,10 @@ class Info(models.Model):
         null=True,
         blank=True
     )
-    html_field = models.TextField(editable=False)
+    html_field = models.TextField(
+        null=True,
+        blank=True
+    )
     destination = models.CharField(
         max_length=128,
         db_index=True,
@@ -29,12 +32,16 @@ class Info(models.Model):
         blank=True
     )
 
+    convetr_md_to_html = models.BooleanField(default=False)
+
     def save(self, *args, **kwargs):
 
         if not self.id:
             self.slug = make_unique_slug(self.__class__, self.title)
 
-        self.html_field = markdown(self.markdown_field)
+        if self.convetr_md_to_html:
+            self.convetr_md_to_html = False
+            self.html_field = markdown(self.markdown_field)
 
         super().save(*args, **kwargs)
 
@@ -57,14 +64,21 @@ class Participant(models.Model):
         null=True,
         blank=True
     )
-    html_field = models.TextField(editable=False)
+    html_field = models.TextField(
+        null=True,
+        blank=True
+    )
+
+    convetr_md_to_html = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
 
         if not self.id:
             self.slug = make_unique_slug(self.__class__, self.title)
 
-        self.html_field = markdown(self.markdown_field)
+        if self.convetr_md_to_html:
+            self.convetr_md_to_html = False
+            self.html_field = markdown(self.markdown_field)
 
         super().save(*args, **kwargs)
 
@@ -87,14 +101,22 @@ class Location(models.Model):
         null=True,
         blank=True
     )
-    html_field = models.TextField(editable=False)
+    html_field = models.TextField(
+        null=True,
+        blank=True
+    )
+    
+    convetr_md_to_html = models.BooleanField(default=False)
+
 
     def save(self, *args, **kwargs):
 
         if not self.id:
             self.slug = make_unique_slug(self.__class__, self.title)
 
-        self.html_field = markdown(self.markdown_field)
+        if self.convetr_md_to_html:
+            self.convetr_md_to_html = False
+            self.html_field = markdown(self.markdown_field)
 
         super().save(*args, **kwargs)
 
@@ -144,11 +166,12 @@ class Photo(models.Model):
         blank=True,
         null=True
     )
+
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = make_unique_slug(self.__class__, self.title)
 
         super().save(*args, **kwargs)
-    
+
     def __str__(self):
         return self.title
