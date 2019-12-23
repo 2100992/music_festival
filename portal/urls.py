@@ -25,12 +25,27 @@ from info.urls import urlpatterns as info_urls
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('login/', login,
+    path(
+        'admin/',
+        admin.site.urls
+    ),
+    path(
+        'login/',
+        login,
         name='login_url'),
-    path('logout/', logout,
-        name='logout_url'),
-    path('accounts/', include('allauth.urls')),
+    path(
+        'logout/',
+        logout,
+        name='logout_url'
+    ),
+    path(
+        'accounts/',
+        include('allauth.urls')
+    ),
+    path(
+        'committee/',
+        include('committee.urls')
+    ),
 ]
 
 urlpatterns += info_urls
