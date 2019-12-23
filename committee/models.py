@@ -52,6 +52,11 @@ class Committeeman(models.Model):
         db_index=True,
         unique=True
     )
+    signature = models.CharField(
+        max_length=128,
+        db_index=True,
+        unique=True
+    )
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -63,5 +68,6 @@ class Committeeman(models.Model):
         Applicant,
         blank=True,
         related_name='committeeman'
-
     )
+    def __str__(self):
+        return self.nickname
