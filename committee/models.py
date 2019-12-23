@@ -71,3 +71,22 @@ class Committeeman(models.Model):
     )
     def __str__(self):
         return self.nickname
+
+class Message(models.Model):
+    title = models.CharField(
+        max_length=128,
+        db_index=True
+    )
+    slug = models.SlugField(
+        default="_",
+        max_length=128,
+        db_index=True,
+        unique=True
+    )
+    desctiption = models.TextField(
+        null=True,
+        blank=True
+    )
+    date_time = models.DateTimeField(
+        auto_now=False,
+        auto_now_add=True)
