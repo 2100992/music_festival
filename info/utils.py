@@ -1,7 +1,7 @@
 from django.db import models
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404, get_list_or_404
-from info.translater import translate
+# from info.translater import translate
 from slugify import slugify
 from markdown import markdown
 
@@ -58,18 +58,13 @@ class GetContextDataMixin:
 # utils for models
 
 
-def make_unique_slug(model, text, counter=0):
-    try:
-        text = translate(text)
-    except:
-        print('Сервис перевода не доступен')
+def make_unique_slug(model, text):
     slug = slugify(text)
+    counter = 0
     str_counter = ''
-    # if slug == 'create':
-    #     slug = 'create0'
-    if counter:
-        str_counter = str(counter)
-    if model.objects.filter(slug=slug+str_counter).count():
+
+    while model.objects.filter(slug=slug+str_counter).count():
+        print(slug+str_counter)
         counter += 1
-        slug = make_unique_slug(model, slug, counter)
+        str_counter = str(counter)
     return slug + str_counter

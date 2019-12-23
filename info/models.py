@@ -1,8 +1,8 @@
 from django.db import models
 
 from markdown import markdown
-# from slugify import slugify
 
+from info.translater import translate
 from info.utils import make_unique_slug
 
 
@@ -37,7 +37,7 @@ class Info(models.Model):
     def save(self, *args, **kwargs):
 
         if not self.id:
-            self.slug = make_unique_slug(self.__class__, self.title)
+            self.slug = make_unique_slug(self.__class__, translate(self.title))
 
         if self.convetr_md_to_html:
             self.convetr_md_to_html = False
@@ -74,7 +74,7 @@ class Participant(models.Model):
     def save(self, *args, **kwargs):
 
         if not self.id:
-            self.slug = make_unique_slug(self.__class__, self.title)
+            self.slug = make_unique_slug(self.__class__, translate(self.title))
 
         if self.convetr_md_to_html:
             self.convetr_md_to_html = False
@@ -105,14 +105,13 @@ class Location(models.Model):
         null=True,
         blank=True
     )
-    
-    convetr_md_to_html = models.BooleanField(default=False)
 
+    convetr_md_to_html = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
 
         if not self.id:
-            self.slug = make_unique_slug(self.__class__, self.title)
+            self.slug = make_unique_slug(self.__class__, translate(self.title))
 
         if self.convetr_md_to_html:
             self.convetr_md_to_html = False
@@ -169,7 +168,7 @@ class Photo(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = make_unique_slug(self.__class__, self.title)
+            self.slug = make_unique_slug(self.__class__, translate(self.title))
 
         super().save(*args, **kwargs)
 
