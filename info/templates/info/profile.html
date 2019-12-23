@@ -1,5 +1,19 @@
-{% if username %}  
-    {{ username }}, ты можешь <a href="{% url 'logout_url' %}?next=/">выйти</a>
-{% else %}  
-    Тебе нужно <a href="{% url 'login_url' %}?next=/prof-redirect/">войти</a> на сайт!
-{% endif %} 
+{% load static %}
+<nav class="navbar navbar-expand-lg">
+    <div class="col-3 mx-4">
+        <a class="" href="{% url 'index_url' %}">
+            <img src="{% static 'info/img/witch.jpg' %}" width="100" height="100" alt="">
+        </a>
+    </div>
+    <div class="col text-right">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <span class="navbar-text">
+            {% if username %}
+                {{ username }}, ты можешь <a href="{% url 'logout_url' %}?next=/">выйти</a>
+            {% else %}
+                <a href="{% url 'login_url' %}?next=/prof-redirect/">Войти</a>
+            {% endif %}
+        </span>
+    </div>
+</nav>
