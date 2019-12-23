@@ -1,15 +1,16 @@
 {% extends "info/base.html" %}
 
 {% block title %}{{ title }}{% endblock %}
-{% include 'navbar.html' %}
 
 {% block navbar %}{% include 'info/navbar.html' %}{% endblock %}
 
 {% block content %}
+
 {% for info in info %}
 <div class="text-light">
     {{ info.html_field|safe }}
 </div>
     {% include 'info/gallery_grid.html' %}
 {% endfor %}
+
 {% endblock %}
