@@ -9,27 +9,27 @@ from markdown import markdown
 # utils for views
 
 
-# class GetContextDataMixin:
-#     model_info = None
-#     model = None
-#     destination = None
+class GetContextDataMixin:
+    model_info = None
+    model = None
+    destination = None
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         # context = {}
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context = {}
 
-#         context['info'] = get_list_or_404(
-#             self.model_info, destination=self.destination)
+        context['info'] = get_list_or_404(
+            self.model_info, destination=self.destination)
 
-#         context['title'] = context['info'][0].title
+        context['title'] = context['info'][0].title
 
-#         if self.model:
-#             context[self.destination] = self.model.objects.all()
+        if self.model:
+            context[self.destination] = self.model.objects.all()
 
-#         if self.request.user.is_authenticated:
-#             context['username'] = self.request.user.username
+        if self.request.user.is_authenticated:
+            context['username'] = self.request.user.username
 
-#         return context
+        return context
 
 # ______________________________________________________________________
 # utils for models
