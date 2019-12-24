@@ -5,7 +5,11 @@
 {% block navbar %}{% include 'committee/navbar.html' %}{% endblock %}
 
 {% block content %}
+
+{% for info in info %}
 <div class="text-light">
-    <p>Hello</p>
+    {{ info.html_field|safe }}
 </div>
+{% endfor %}
+
 {% endblock %}
