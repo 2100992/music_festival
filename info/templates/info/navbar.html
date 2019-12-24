@@ -23,4 +23,12 @@
     <li class="nav-item">
         <a class="nav-link  h3 mx-auto text-light" href="{% url 'contacts_url' %}">Контакты</a>
     </li>
+    {% if username %}
+        <li class="nav-item">
+            <a class="nav-link  h3 mx-auto text-light" href="{% url 'committee_index_url' %}">ПК</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  h3 mx-auto text-light" href="{% url 'timetable_index_url' %}">Расписание</a>
+        </li>
+    {% endif %}
 </ul>

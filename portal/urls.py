@@ -46,6 +46,10 @@ urlpatterns = [
         'committee/',
         include('committee.urls')
     ),
+    path(
+        'timetable/',
+        include('timetable.urls')
+    ),
 ]
 
 urlpatterns += info_urls
