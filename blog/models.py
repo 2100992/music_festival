@@ -49,7 +49,7 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
 
         if not self.id:
-            self.slug = make_unique_slug(self.__class__, translate(self.title))
+            self.slug = make_unique_slug(self.__class__, f'{self.publication_date.strftime("%d/%m/%y")}-{translate(self.title)}')
 
         if self.convetr_md_to_html:
             self.convetr_md_to_html = False
