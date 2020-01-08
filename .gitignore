@@ -2,3 +2,4 @@
 *.sqlite3
 *secrets.py
 media/*
+*experiments.py
