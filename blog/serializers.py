@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 from django.contrib.auth.models import User
 
+
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -13,21 +14,46 @@ class AuthorSerializer(serializers.ModelSerializer):
             'last_name',
         ]
 
+
+class CategorySerializer(serializers.ModelSerializer):
+    post = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='slug'
+    )
+
+    class Meta:
+        model = Category
+        fields = [
+            'title',
+            'slug',
+            'post',
+
+        ]
+
+
 class PostSerializer(serializers.ModelSerializer):
 
     author = AuthorSerializer(required=False)
+    category = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='slug'
+    )
 
     class Meta:
         model = Post
-        fields = '__all__'
-
-
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = '__all__'
-
-
+        # fields = '__all__'
+        fields = [
+            'title',
+            'slug',
+            'status',
+            'html_field',
+            'updated',
+            'publication_date',
+            'category',
+            'author',
+        ]
 
 
 # class PostLinkSerializer(serializers.HyperlinkedModelSerializer):
