@@ -1,0 +1,6 @@
+{
+  "name": "Deaf tracts",
+  "description": "Portal of musical festival Deaf Tracts",
+  "image": "heroku/python",
+  "keywords": ["python", "django" ]
+}
