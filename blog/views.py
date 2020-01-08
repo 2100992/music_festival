@@ -15,7 +15,7 @@ class PostDetail(generics.RetrieveAPIView):
     serializer_class = PostSerializer
     lookup_field = 'slug'
 
-class CategoryList(generics.ListAPIView):
+class CategoryList(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
