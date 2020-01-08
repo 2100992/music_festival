@@ -50,6 +50,10 @@ urlpatterns = [
         'timetable/',
         include('timetable.urls')
     ),
+    path(
+        'blog/',
+        include('blog.urls')
+    ),
 ]
 
 urlpatterns += info_urls
