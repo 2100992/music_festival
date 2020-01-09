@@ -32,26 +32,26 @@ class GetContextDataMixin:
         return context
 
 
-# class ObjectDetailMixin:
-#     model = None
-#     template = None
+class ObjectDetailMixin:
+    model = None
+    template = None
 
-#     def get(self, request, slug):
-#         obj = get_object_or_404(self.model, slug__iexact=slug)
-#         context = {
-#             self.model.__name__.lower(): obj
-#         }
+    def get(self, request, slug):
+        obj = get_object_or_404(self.model, slug__iexact=slug)
+        context = {
+            self.model.__name__.lower(): obj
+        }
 
-#         if request.user.is_authenticated:
-#             context['username'] = request.user.username
+        if request.user.is_authenticated:
+            context['username'] = request.user.username
 
-#         return render(request, self.template, context=context)
+        return render(request, self.template, context=context)
 
 
-# class ObjectsListMixin:
-#     model = None
-#     template = None
-#     title = None
+class ObjectsListMixin:
+    model = None
+    template = None
+    title = None
 
 
 # ______________________________________________________________________

@@ -6,19 +6,68 @@
 
 {% block content %}
 
-{% for post in posts %}
-<div class="card">
+{% if posts %}
+    {% for post in posts %}
+    <div class="mb-4 bg-dark text-light card">
+        <div class="card-header">
+            {{ post.publication_date }}
+        </div>
+        <div class="card-body">
+            {% for category in post.category.all %}
+            <span class="card-title"><a href="{% url 'blog_category_detail_url' category.slug%}">#{{ category.title }} </a></span>
+            {% endfor %}
+            <p class="card-text h3">{{ post.title|safe }}</p>
+            <a href="{% url 'blog_post_detail_url' post.slug %}" class="btn btn-primary">Открыть</a>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+{% if categories %}
+    {% for category in categories %}
+    <div class="mb-4 bg-dark text-light card">
+        <div class="card-header">
+            {{ category.title }}
+        </div>
+        <div class="card-body">
+            {% for post in category.post.all %}
+            <div class="card-title">
+            <a href="{% url 'blog_post_detail_url' post.slug %}">{{ post.title }}</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+{% if category %}
+    <div class="mb-4 bg-dark text-light card">
+        <div class="card-header">
+            {{ category.title }}
+        </div>
+        <div class="card-body">
+            {% for post in category.post.all %}
+            <div class="card-title">
+            <a href="{% url 'blog_post_detail_url' post.slug %}">{{ post.title }}</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+
+{% if post %}
+<div class="mb-4 bg-dark text-light card">
     <div class="card-header">
         {{ post.title }}
     </div>
     <div class="card-body">
         {% for category in post.category.all %}
-        <span class="card-title">#{{ category.title }} </span>
+        <span class="card-title"><a href="{% url 'blog_category_detail_url' category.slug%}">#{{ category.title }} </a></span>
         {% endfor %}
-        <p class="card-text">{{ post.html_field|safe }}</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <p class="card-text h3">{{ post.html_field|safe }}</p>
+        <a href="{% url 'blog_posts_url' %}" class="btn btn-primary">Вернуться</a>
     </div>
 </div>
-{% endfor %}
+{% endif %}
 
 {% endblock %}

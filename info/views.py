@@ -8,6 +8,8 @@ from info.utils import GetContextDataMixin
 
 from blog.models import Post, Category
 
+from info.utils import ObjectDetailMixin, ObjectsListMixin
+
 # Create your views here.
 
 
@@ -70,13 +72,37 @@ class Gallery(GetContextDataMixin, TemplateView):
     #     return context
 
 
-class Blog(View):
+class BlogPosts(View):
     template = 'info/blog.html'
 
     def get(self, request):
         context = {}
         context['posts'] = Post.objects.all()
+
+        if request.user.is_authenticated:
+            context['username'] = request.user.username
+
         return render(request, self.template, context=context)
+
+class BlogPostDetail(ObjectDetailMixin, View):
+    model = Post
+    template = 'info/blog.html'
+
+class BlogCategories(View):
+    template = 'info/blog.html'
+
+    def get(self, request):
+        context = {}
+        context['categories'] = Category.objects.all()
+        
+        if request.user.is_authenticated:
+            context['username'] = request.user.username
+
+        return render(request, self.template, context=context)
+
+class BlogCategoryDetail(ObjectDetailMixin, View):
+    model = Category
+    template = 'info/blog.html'
 
 
 def profile_redirect(request):
