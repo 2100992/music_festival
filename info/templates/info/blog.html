@@ -1,0 +1,24 @@
+{% extends "info/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block navbar %}{% include 'info/navbar.html' %}{% endblock %}
+
+{% block content %}
+
+{% for post in posts %}
+<div class="card">
+    <div class="card-header">
+        {{ post.title }}
+    </div>
+    <div class="card-body">
+        {% for category in post.category.all %}
+        <span class="card-title">#{{ category.title }} </span>
+        {% endfor %}
+        <p class="card-text">{{ post.html_field|safe }}</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

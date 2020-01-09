@@ -6,6 +6,7 @@ from info.models import Info, Participant, Location, Photo
 from django.shortcuts import get_object_or_404, get_list_or_404
 from info.utils import GetContextDataMixin
 
+from blog.models import Post, Category
 
 # Create your views here.
 
@@ -70,10 +71,11 @@ class Gallery(GetContextDataMixin, TemplateView):
 
 
 class Blog(View):
-    template = 'info/index.html'
+    template = 'info/blog.html'
 
     def get(self, request):
         context = {}
+        context['posts'] = Post.objects.all()
         return render(request, self.template, context=context)
 
 
