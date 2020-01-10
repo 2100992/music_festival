@@ -6,6 +6,7 @@ from committee.translater import translate
 
 # Create your models here.
 
+
 class Applicant(models.Model):
     title = models.CharField(
         max_length=128,
@@ -38,7 +39,7 @@ class Applicant(models.Model):
         blank=True,
         null=True
     )
-    
+
     def save(self, *args, **kwargs):
 
         if not self.id:
@@ -52,6 +53,7 @@ class Applicant(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Committeeman(models.Model):
     nickname = models.CharField(
@@ -76,6 +78,7 @@ class Committeeman(models.Model):
         blank=True,
         related_name='committeeman'
     )
+
     def __str__(self):
         return self.nickname
 
