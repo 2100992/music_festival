@@ -14,6 +14,8 @@ import os
 import dj_database_url
 from django.utils.crypto import get_random_string
 
+import datetime
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -63,6 +65,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
 
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
+    'rest_framework_jwt',
+    'rest_framework_json_api',
 
     'blog',
     'info',
@@ -138,10 +144,6 @@ else:
     }
 
 
-
-
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -183,3 +185,46 @@ STATICFILES_DIRS = []
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+    #     # 'rest_framework.permissions.IsAdminUser',
+    #     'rest_framework.permissions.AllowAny',
+    # ),
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework_json_api.pagination.PageNumberPagination',
+    # 'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    # 'DATETIME_FORMAT': "%d.%m.%Y %H:%M:%S",
+}
+
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=2),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7)  # default
+}
+
+
+DJOSER = {
+    'SEND_ACTIVATION_EMAIL': True,
+    # 'SEND_CONFIRMATION_EMAIL': True,
+    'ACTIVATION_URL': 'auth/activate/{uid}/{token}/',
+    'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'auth/reset/confirm/{uid}/{token}/',
+    'TOKEN_MODEL': None
+}
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+}

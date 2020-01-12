@@ -54,6 +54,18 @@ urlpatterns = [
         'blog/',
         include('blog.urls')
     ),
+    path(
+        'auth/',
+        include('djoser.urls')
+    ),
+    path(
+        'auth/',
+        include('djoser.urls.authtoken')
+    ),
+    path(
+        'auth/',
+        include('djoser.urls.jwt')
+    ),
 ]
 
 urlpatterns += info_urls
