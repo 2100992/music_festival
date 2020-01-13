@@ -1,4 +1,4 @@
-from blog.models import Post, Category
+from .models import Post, Category
 
 from rest_framework import serializers
 
@@ -6,8 +6,6 @@ from django.contrib.auth.models import User
 
 
 class AuthorSerializer(serializers.ModelSerializer):
-    # posts = serializers.PrimaryKeyRelatedField(many=True, queryser=Post.objects.all())
-
     class Meta:
         model = User
         fields = [
@@ -18,6 +16,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
+
     post = serializers.SlugRelatedField(
         many=True,
         read_only=True,
@@ -28,51 +27,40 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = [
             'title',
-            'slug',
             'post',
-
         ]
-    
-    # def create
+        read_only_fields = [
+            'slug',
+        ]
 
 
 class PostSerializer(serializers.ModelSerializer):
 
     author = AuthorSerializer(required=False, read_only=True,)
-    # author = serializers.PrimaryKeyRelatedField(
-    #     many=False,
-    #     read_only=True,
-    #     # queryset=User.objects.all()
-    # )
 
-    # category = CategorySerializer(required=False, read_only=True,)
     category = serializers.SlugRelatedField(
         many=True,
-        # read_only=True,
         slug_field='slug',
         queryset=Category.objects.all()
     )
 
-    # category = CategorySerializer(required=False, queryset=Category.objects.all())
-
-
     class Meta:
         model = Post
-        # fields = '__all__'
         fields = [
+            'author',
             'title',
-            'slug',
             'status',
+            'category',
             'markdown_field',
             'html_field',
+            'convetr_md_to_html',
+
+
+        ]
+        read_only_fields = [
+            'slug',
             'updated',
             'publication_date',
-            'category',
-            'author',
+
         ]
 
-
-# class PostLinkSerializer(serializers.HyperlinkedModelSerializer):
-#     class Meta:
-#         model = Post
-#         fields = '__all__'
