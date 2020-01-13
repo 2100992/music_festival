@@ -35,27 +35,39 @@ def print_user_info(request):
 class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [
+        IsAuthenticatedOrReadOnly,
+        # IsAuthenticated,
+    ]
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        print_user_info(self.request)
+        # print(f'dir(self.request.data = \n {dir(self.request.data)}')
+        # serializer.is_valid
+        # print(f'serializer.data = {serializer}')
+        # category = Category.objects.
+        serializer.save(author=self.request.user)
 
     # def create(self, request, *args, **kwargs):
     #     self.serializer_class.author = self.request.user
     #     return super().create(request, *args, **kwargs)  
 
-    def dispatch(self, request, *args, **kwargs):
+    # def dispatch(self, request, *args, **kwargs):
+    #     print_user_info(self.request)
+    #     # print()
+    #     # print(f'Auth \n - {request.user.auth_token}')
+    #     # if self.request.user.is_anonymous:
+    #     #     return HttpResponse('Залогинься')
+    #     # else:
+    #     #     return super().dispatch(request, *args, **kwargs)
+    #     return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
         print_user_info(self.request)
-        # print()
-        # print(f'Auth \n - {request.user.auth_token}')
-        # if self.request.user.is_anonymous:
-        #     return HttpResponse('Залогинься')
-        # else:
-        #     return super().dispatch(request, *args, **kwargs)
-        return super().dispatch(request, *args, **kwargs)  
+        return super().get(request, *args, **kwargs)
 
 
-# class PostList(
+# class PostList2(
 #         mixins.CreateModelMixin,
 #         APIView
 # ):
@@ -70,21 +82,20 @@ class PostList(generics.ListCreateAPIView):
 
 #     def get(self, request):
 #         serializer = self.serializer_class(self.posts, many=True)
-#         user = request.user
-#         # print_user_info(user)
+#         print_user_info(request)
 #         return Response(serializer.data)
 
-#     def post(self, request):
-#         # user = request.user
-#         self.create(request)
+#     # def post(self, request):
+#     #     # user = request.user
+#     #     self.create(request)
 
-#         # if request.auth:
-#         #     self.create(request)
+#     #     # if request.auth:
+#     #     #     self.create(request)
 
-#         serializer = self.serializer_class(self.posts, many=True)
-#         # user = request.user
-#         # print_user_info(user)
-#         return Response(serializer.data)
+#     #     serializer = self.serializer_class(self.posts, many=True)
+#     #     # user = request.user
+#     #     # print_user_info(user)
+#     #     return Response(serializer.data)
 
         # @api_view(['GET'])
         # # @permission_classes([IsAuthenticated])

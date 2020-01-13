@@ -38,12 +38,23 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
 
-    author = AuthorSerializer(required=False)
+    author = AuthorSerializer(required=False, read_only=True,)
+    # author = serializers.PrimaryKeyRelatedField(
+    #     many=False,
+    #     read_only=True,
+    #     # queryset=User.objects.all()
+    # )
+
+    # category = CategorySerializer(required=False, read_only=True,)
     category = serializers.SlugRelatedField(
         many=True,
-        read_only=True,
-        slug_field='slug'
+        # read_only=True,
+        slug_field='slug',
+        queryset=Category.objects.all()
     )
+
+    # category = CategorySerializer(required=False, queryset=Category.objects.all())
+
 
     class Meta:
         model = Post
@@ -52,6 +63,7 @@ class PostSerializer(serializers.ModelSerializer):
             'title',
             'slug',
             'status',
+            'markdown_field',
             'html_field',
             'updated',
             'publication_date',
