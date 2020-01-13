@@ -191,7 +191,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         # 'rest_framework_simplejwt.authentication.JWTAuthentication',
         # 'rest_framework.permissions.IsAdminUser',
-        'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        # 'rest_framework.permissions.IsAuthenticated',
+
     ),
     'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': (

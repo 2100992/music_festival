@@ -3,8 +3,8 @@ from django.utils import timezone
 
 from markdown import markdown
 
-from blog.utils import make_unique_slug
-from blog.translater import translate
+from .utils import make_unique_slug
+from .translater import translate
 
 from django.contrib.auth.models import User
 
