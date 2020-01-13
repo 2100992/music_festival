@@ -29,7 +29,8 @@ class Post(models.Model):
         choices=[
             ('D', 'draft'),
             ('P', 'published')
-        ]
+        ],
+        default='D',
     )
     markdown_field = models.TextField(
         null=True,
@@ -45,7 +46,10 @@ class Post(models.Model):
     publication_date = models.DateTimeField(
         default=timezone.now
     )
-    convetr_md_to_html = models.BooleanField(default=False)
+    convetr_md_to_html = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['publication_date']
 
     def save(self, *args, **kwargs):
 
