@@ -188,18 +188,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     # 'rest_framework_simplejwt.authentication.JWTAuthentication',
-    #     # 'rest_framework.permissions.IsAdminUser',
-    #     'rest_framework.permissions.AllowAny',
-    # ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework.permissions.IsAdminUser',
+        'rest_framework.permissions.AllowAny',
+    ),
     'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',
-        # 'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework_json_api.pagination.PageNumberPagination',

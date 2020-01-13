@@ -10,43 +10,107 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
 
-# class PostList(generics.ListCreateAPIView):
-#     queryset = Post.objects.all()
+from rest_framework.decorators import api_view, permission_classes
+
+from rest_framework import mixins
+
+
+def print_user_info(request):
+    print()
+    print(f'User username \n - {request.user.username}')
+    # print()
+    # print(f'Auth \n - {request.auth}')
+    print()
+    print('User groups:')
+    for group in request.user.groups.all():
+        print(f' - {group}')
+    print()
+    # print(dir(request))
+    # print(dir(serializer))
+    # serializer.data['user'] = request.user
+
+
+class PostList(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    # def create(self, request, *args, **kwargs):
+    #     self.serializer_class.author = self.request.user
+    #     return super().create(request, *args, **kwargs)  
+
+    def dispatch(self, request, *args, **kwargs):
+        print_user_info(self.request)
+        # print()
+        # print(f'Auth \n - {request.user.auth_token}')
+        # if self.request.user.is_anonymous:
+        #     return HttpResponse('Залогинься')
+        # else:
+        #     return super().dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)  
+
+
+# class PostList(
+#         mixins.CreateModelMixin,
+#         APIView
+# ):
+
+#     permission_classes = [
+#         # IsAuthenticated,
+#         AllowAny,
+#     ]
+
+#     posts = Post.objects.all()
 #     serializer_class = PostSerializer
 
+#     def get(self, request):
+#         serializer = self.serializer_class(self.posts, many=True)
+#         user = request.user
+#         # print_user_info(user)
+#         return Response(serializer.data)
 
-#     def dispatch(self, request, *args, **kwargs):
-#         print(self.request.user.username)
-#         if self.request.user.is_anonymous:
-#             return HttpResponse('Залогинься')
-#         else:
-#             return super(PostList, self).dispatch(request, *args, **kwargs)
+#     def post(self, request):
+#         # user = request.user
+#         self.create(request)
 
+#         # if request.auth:
+#         #     self.create(request)
 
-class PostList(APIView):
-    permission_classes = [IsAuthenticated]
+#         serializer = self.serializer_class(self.posts, many=True)
+#         # user = request.user
+#         # print_user_info(user)
+#         return Response(serializer.data)
 
-    posts = Post.objects.all()
-    serializer_class = PostSerializer
+        # @api_view(['GET'])
+        # # @permission_classes([IsAuthenticated])
+        # def post_list(request, format=None):
+        #     if request.method == 'GET':
+        #         permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        serializer = self.serializer_class(self.posts, many=True)
-        user = request.user
-        print()
-        print(f'User username \n - {user.username}')
-        print()
-        print(f'Auth \n - {request.auth}')
-        print()
-        print('User groups:')
-        for group in user.groups.all():
-            print(f' - {group}')
-        print()
-        # print(dir(request))
-        # print(dir(serializer))
-        # serializer.data['user'] = request.user
-        return Response(serializer.data)
+        #         posts = Post.objects.all()
+
+        #         serializer = PostSerializer(posts, many=True)
+
+        #         user = request.user
+
+        #         print()
+        #         print(f'User username \n - {user.username}')
+        #         print()
+        #         print(f'Auth \n - {request.auth}')
+        #         print()
+        #         print('User groups:')
+        #         for group in user.groups.all():
+        #             print(f' - {group}')
+        #         print()
+        #         # print(dir(request))
+        #         # print(dir(serializer))
+        #         # serializer.data['user'] = request.user
+        #         return Response(serializer.data)
 
 
 class PostDetail(generics.RetrieveAPIView):
