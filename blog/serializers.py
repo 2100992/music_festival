@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 
 
 class AuthorSerializer(serializers.ModelSerializer):
+    # posts = serializers.PrimaryKeyRelatedField(many=True, queryser=Post.objects.all())
+
     class Meta:
         model = User
         fields = [
@@ -30,6 +32,8 @@ class CategorySerializer(serializers.ModelSerializer):
             'post',
 
         ]
+    
+    # def create
 
 
 class PostSerializer(serializers.ModelSerializer):
