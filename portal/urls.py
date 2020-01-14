@@ -29,10 +29,10 @@ urlpatterns = [
         'admin/',
         admin.site.urls
     ),
-    path(
-        'login/',
-        login,
-        name='login_url'),
+    # path(
+    #     'login/',
+    #     login,
+    #     name='login_url'),
     path(
         'logout/',
         logout,

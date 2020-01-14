@@ -1,8 +1,12 @@
 from django.urls import path
-from info import views
+from . import views
 
 urlpatterns = [
     path('', views.Index.as_view(), name='index_url'),
+    path(
+        'login/',
+        views.LoginViewClass.as_view(),
+        name='login_url'),
     path('participants/', views.Participans.as_view(), name='participants_url'),
     path('locations/', views.Locations.as_view(), name='locations_url'),
     path('gallery/', views.Gallery.as_view(), name='gallery_url'),

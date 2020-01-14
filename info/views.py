@@ -1,17 +1,23 @@
+from allauth.account.views import LoginView
 from django.shortcuts import render, redirect
+# from django.shortcuts import get_object_or_404, get_list_or_404
+
 from django.views import View
 from django.views.generic.base import TemplateView
 
-from info.models import Info, Participant, Location, Photo
-from django.shortcuts import get_object_or_404, get_list_or_404
-from info.utils import GetContextDataMixin
+from .models import Info, Participant, Location, Photo
+from .utils import GetContextDataMixin
+from .utils import ObjectDetailMixin, ObjectsListMixin
 
 from blog.models import Post, Category
+from .forms import UserLoginForm
 
-from info.utils import ObjectDetailMixin, ObjectsListMixin
 
 # Create your views here.
 
+class LoginViewClass(LoginView):
+    template_name = "info/login.html"
+    form_class = UserLoginForm
 
 class Index(GetContextDataMixin, TemplateView):
     template_name = 'info/index.html'
