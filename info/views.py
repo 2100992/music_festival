@@ -1,4 +1,4 @@
-from allauth.account.views import LoginView
+from allauth.account.views import LoginView, SignupView
 from django.shortcuts import render, redirect
 # from django.shortcuts import get_object_or_404, get_list_or_404
 
@@ -10,14 +10,34 @@ from .utils import GetContextDataMixin
 from .utils import ObjectDetailMixin, ObjectsListMixin
 
 from blog.models import Post, Category
-from .forms import UserLoginForm
+from .forms import UserLoginForm, UserSignupForm
+
+from allauth.account.forms import SignupForm
 
 
 # Create your views here.
 
+class SmallTest(View):
+    template = 'info/small_test.html'
+
+    def get(self, request):
+        context = {}
+        return render(request, self.template, context=context)
+    
+    def post(self, request):
+        pass
+
+
+
 class LoginViewClass(LoginView):
     template_name = "info/login.html"
     form_class = UserLoginForm
+    success_url = None
+    redirect_field_name = "next"
+
+class SignupViewClass(SignupView):
+    template_name = "info/login.html"
+    form_class = UserSignupForm
 
 class Index(GetContextDataMixin, TemplateView):
     template_name = 'info/index.html'
