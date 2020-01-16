@@ -13,6 +13,11 @@ urlpatterns = [
         views.SignupViewClass.as_view(),
         name='sungup_url'
     ),
+    path(
+         'logout/',
+         views.LogoutViewClass.as_view(),
+         name='logout_url'
+    ),
     path('participants/', views.Participans.as_view(), name='participants_url'),
     path('locations/', views.Locations.as_view(), name='locations_url'),
     path('gallery/', views.Gallery.as_view(), name='gallery_url'),

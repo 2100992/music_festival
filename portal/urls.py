@@ -16,8 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls.static import static
 
 from allauth.account.views import login, logout
 
@@ -29,30 +29,21 @@ urlpatterns = [
         'admin/',
         admin.site.urls
     ),
-    # path(
-    #     'login/',
-    #     login,
-    #     name='login_url'),
+
     path(
-        'logout/',
-        logout,
-        name='logout_url'
+        'allauth-login/',
+        login,
+        name='allauth-login_url'
     ),
+    path(
+        'allauth-logout/',
+        logout,
+        name='allauth-logout_url'
+    ),
+
     path(
         'accounts/',
         include('allauth.urls')
-    ),
-    path(
-        'committee/',
-        include('committee.urls')
-    ),
-    path(
-        'timetable/',
-        include('timetable.urls')
-    ),
-    path(
-        'blog/',
-        include('blog.urls')
     ),
     path(
         'auth/',
@@ -66,7 +57,24 @@ urlpatterns = [
         'auth/',
         include('djoser.urls.jwt')
     ),
+
+
+
+    path(
+        'committee/',
+        include('committee.urls')
+    ),
+    path(
+        'timetable/',
+        include('timetable.urls')
+    ),
+    path(
+        'blog/',
+        include('blog.urls')
+    ),
+
 ]
 
 urlpatterns += info_urls
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

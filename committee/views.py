@@ -19,4 +19,10 @@ class Index(GetContextDataMixin, TemplateView):
         else:
             return redirect('/')
 
-        
+class ApplicantView(TemplateView):
+    template_name = 'committee/index.html'
+    # model_info
+
+class CommitteemanView(TemplateView):
+    template_name = 'committee/index.html'
+    # model_info

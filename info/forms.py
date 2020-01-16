@@ -3,6 +3,9 @@ from django import forms
 from django.forms import formset_factory
 # from .models import *
 
+# class TstLoginForm(forms.ModelForm):
+#     class Meta:
+#         model = 
 
 class UserLoginForm(LoginForm):
     password = forms.CharField(
@@ -13,8 +16,7 @@ class UserLoginForm(LoginForm):
             }
         )
     )
-    # class Meta:
-    #     model = ""
+
 
 
 class UserSignupForm(SignupForm):
@@ -27,5 +29,12 @@ class UserSignupForm(SignupForm):
             }
         )
     )
+
+#     ChangePasswordForm
+
+# AddEmailForm
+
+
+# UserForm
 
 LoginSignupFormset = formset_factory(UserLoginForm, UserSignupForm)

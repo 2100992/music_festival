@@ -54,6 +54,16 @@ class ObjectsListMixin:
     title = None
 
 
+def print_user_info(request):
+    print()
+    print(f'User username \n - {request.user.username}')
+    print()
+    print('User groups:')
+    for group in request.user.groups.all():
+        print(f' - {group}')
+    print()
+
+
 # ______________________________________________________________________
 # utils for models
 
