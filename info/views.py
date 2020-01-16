@@ -1,18 +1,23 @@
-from allauth.account.views import LoginView, SignupView
+from allauth.account.views import LoginView, LogoutView, SignupView
 from django.shortcuts import render, redirect
 # from django.shortcuts import get_object_or_404, get_list_or_404
+from django.urls import reverse
 
 from django.views import View
 from django.views.generic.base import TemplateView
+from django.views.generic import CreateView, ListView
 
 from .models import Info, Participant, Location, Photo
 from .utils import GetContextDataMixin
 from .utils import ObjectDetailMixin, ObjectsListMixin
+from .utils import print_user_info
 
 from blog.models import Post, Category
 from .forms import UserLoginForm, UserSignupForm
 
 from allauth.account.forms import SignupForm
+
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -23,10 +28,9 @@ class SmallTest(View):
     def get(self, request):
         context = {}
         return render(request, self.template, context=context)
-    
+
     def post(self, request):
         pass
-
 
 
 class LoginViewClass(LoginView):
@@ -35,9 +39,15 @@ class LoginViewClass(LoginView):
     success_url = None
     redirect_field_name = "next"
 
+
+class LogoutViewClass(LogoutView):
+    template_name = "info/logout.html"
+
+
 class SignupViewClass(SignupView):
     template_name = "info/login.html"
     form_class = UserSignupForm
+
 
 class Index(GetContextDataMixin, TemplateView):
     template_name = 'info/index.html'
@@ -68,13 +78,13 @@ class Road(GetContextDataMixin, TemplateView):
 class Infrastructure(GetContextDataMixin, TemplateView):
     template_name = 'info/infrastructure.html'
     model_info = Info
-    destination='infrastructure'
+    destination = 'infrastructure'
 
 
 class Contacts(GetContextDataMixin, TemplateView):
     template_name = 'info/contacts.html'
     model_info = Info
-    destination='contacts'
+    destination = 'contacts'
 
 
 class Gallery(GetContextDataMixin, TemplateView):
@@ -89,7 +99,7 @@ class Gallery(GetContextDataMixin, TemplateView):
 
     #     context['info'] = get_list_or_404(
     #         self.model_info, destination=self.destination)
-        
+
     #     context['title'] = context['info'][0].title
 
     #     if self.model:
@@ -110,9 +120,11 @@ class BlogPosts(View):
 
         return render(request, self.template, context=context)
 
+
 class BlogPostDetail(ObjectDetailMixin, View):
     model = Post
     template = 'info/blog.html'
+
 
 class BlogCategories(View):
     template = 'info/blog.html'
@@ -120,11 +132,12 @@ class BlogCategories(View):
     def get(self, request):
         context = {}
         context['categories'] = Category.objects.all()
-        
+
         if request.user.is_authenticated:
             context['username'] = request.user.username
 
         return render(request, self.template, context=context)
+
 
 class BlogCategoryDetail(ObjectDetailMixin, View):
     model = Category
@@ -132,10 +145,17 @@ class BlogCategoryDetail(ObjectDetailMixin, View):
 
 
 def profile_redirect(request):
+    print()
+    print('User logged in')
+    print_user_info(request)
     if request.user.is_authenticated:
+        groups = set(group.name for group in request.user.groups.all())
         if request.user.is_superuser:
             return redirect('/admin/')
-        return redirect('/contacts/')
+        elif 'Applicant' in groups:
+            return redirect(reverse('committee:applicant_url'))
+        elif 'Committeeman' in groups:
+            return redirect(reverse('committee:committeeman_url'))
     return redirect('/')
 
 
