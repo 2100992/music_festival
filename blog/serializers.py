@@ -21,7 +21,6 @@ class CategorySerializer(serializers.ModelSerializer):
         many=True,
         read_only=True,
         slug_field='slug',
-        queryset=Post.objects.all()
     )
 
     class Meta:
