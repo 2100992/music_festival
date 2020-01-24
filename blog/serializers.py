@@ -28,6 +28,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = [
             'title',
             'post',
+            'slug'
         ]
         read_only_fields = [
             'slug',
@@ -49,6 +50,7 @@ class PostSerializer(serializers.ModelSerializer):
         fields = [
             'author',
             'title',
+            'slug',
             'status',
             'category',
             'markdown_field',
